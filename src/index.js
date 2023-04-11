@@ -22,7 +22,9 @@ const port = process.env.PORT || 4232;
 
 //all apis
 app.use("/user",userController);
-
+app.get("/",(req,res)=>{
+	return res.json({massage:"your application is working perfectaly"})
+})
 
 app.listen(port, async()=>{
 	await connection();
