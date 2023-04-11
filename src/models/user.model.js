@@ -16,6 +16,15 @@ const userSchema = new mongoose.Schema({
 		required:[true, "please add your password"],
 		
 	},
+	mobNumber:{
+		type:String,
+		required:[true, "please add your mobile number"],
+	},
+	country:{
+		type:String,
+		required:[true, "please add your country"],
+		
+	},
 	// avtar:{
 	// 	public_id:{
 	// 		type:String,
