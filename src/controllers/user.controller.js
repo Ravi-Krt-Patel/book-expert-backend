@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 // const Reviews = require("../models/reviews.model");
 // const Order = require("../models/order.model");
 // const cloudinary = require("../midleware/cloudinary");
-
+const upload = require("../middleware/file-upload")
 require("dotenv").config();
 const User = require("../models/user.model");
 
@@ -19,13 +19,14 @@ const Token = (user)=>{
 
 // user restration here------------------------------------------------
 
-router.post("/register",
+router.post("/register", upload.single("profile_img"),
 body("name").notEmpty().isLength({min:3}).withMessage("name sould be more than 3 cahrector"),
 body("name").isLength({max:15}).withMessage("name should not more than 15 charector"),
 body("email").isEmail().withMessage("please provide vailid email"),
 body("password").isLength({min:8}).withMessage("password should be atleast 8 characters"),
- async (req, res) => {
 
+ async (req, res) => {
+	
 	try{
 		const error = validationResult(req);
 	let finalError = null;
@@ -43,7 +44,14 @@ body("password").isLength({min:8}).withMessage("password should be atleast 8 cha
 			return res.status(400).json({message:"please check your email address, your email is already exist"})
 		}else{
 			req.body.role = 'user';
-			user = await User.create(req.body);
+			
+			user = await User.create({
+				name: req.body.name,
+				email:req.body.email,
+				password:req.body.password,
+				image:req.file.path,
+				role:'user'
+			});
 			let token = Token(user);
 
 			// res.cookie("jwt", token,{
