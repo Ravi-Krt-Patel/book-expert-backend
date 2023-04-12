@@ -30,7 +30,7 @@ body("password").isLength({min:8}).withMessage("password should be atleast 8 cha
 	try{
 		const error = validationResult(req);
 	    let finalError = null;
-	  if(!error.isEmpty()) {
+	    if(!error.isEmpty()) {
 		 finalError = error.array().map(error =>{
 			return {
 				param: error.param,
@@ -38,7 +38,7 @@ body("password").isLength({min:8}).withMessage("password should be atleast 8 cha
 			}
 		});
 		return res.status(400).json({errors: finalError});
-	 }
+	   }
 	  let user = await User.findOne({email:req.body.email});
 		if(user){
 			return res.status(400).json({message:"please check your email address, your email is already exist"})

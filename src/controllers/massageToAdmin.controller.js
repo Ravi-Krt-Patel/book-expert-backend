@@ -7,20 +7,8 @@ const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
 //post method for product --------------------------------------------
-router.post("/",body("email").isEmail().withMessage("please provide vailid email"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const error = validationResult(req);
-    let finalError = null;
-    if (!error.isEmpty()) {
-      finalError = error.array().map((error) => {
-        return {
-          param: error.param,
-          msg: error.msg,
-        };
-      });
-      return res.status(400).json({ errors: finalError });
-    }
-
     const massage = await Massage.create(req.body);
     return res.status(201).send({ massage });
   } catch (err) {

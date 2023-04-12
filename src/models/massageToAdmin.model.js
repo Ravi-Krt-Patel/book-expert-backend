@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const MessSchema = new mongoose.Schema({
 	email:{
 		type:String,
-		required:[true, "please add a product name"]
+		required:[true, "please add a product email"]
 	},
-	massage:{
+	message:{
 		type:String,
 		required:[true, "please add a description"]
 	}
