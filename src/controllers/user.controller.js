@@ -49,20 +49,14 @@ body("password").isLength({min:8}).withMessage("password should be atleast 8 cha
 			// name: req.body.name,
 			// 	email:req.body.email,
 			// 	password:req.body.password,
+			//  country:req.body.country,
+			//	image:req.file.path,
 			// 	image:req.file.path,
 			// 	role:'user'
 			// }
 			
 			user = await User.create(
-				{
-			       name: req.body.name,
-				   email:req.body.email,
-				   password:req.body.password,
-				   mobNumber:req.body.mobNumber,
-				   country:req.body.country,
-				   image:req.file.path,
-				   role:'user'
-			    }
+				req.body
 			);
 			let token = Token(user);
 
