@@ -20,6 +20,7 @@ const Token = (user)=>{
 // user restration here------------------------------------------------
 //upload.single("profile_img"),
 router.post("/register", 
+upload.single("profile_img"),
 body("name").notEmpty().isLength({min:3}).withMessage("name sould be more than 3 cahrector"),
 body("name").isLength({max:15}).withMessage("name should not more than 15 charector"),
 body("email").isEmail().withMessage("please provide vailid email"),
@@ -52,7 +53,17 @@ body("password").isLength({min:8}).withMessage("password should be atleast 8 cha
 			// 	role:'user'
 			// }
 			
-			user = await User.create(req.body);
+			user = await User.create(
+				{
+			       name: req.body.name,
+				   email:req.body.email,
+				   password:req.body.password,
+				   mobNumber:req.body.mobNumber,
+				   country:req.body.country,
+				   image:req.file.path,
+				   role:'user'
+			    }
+			);
 			let token = Token(user);
 
 			// res.cookie("jwt", token,{
