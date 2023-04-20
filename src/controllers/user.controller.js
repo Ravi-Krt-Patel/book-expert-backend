@@ -20,7 +20,6 @@ const Token = (user)=>{
 // user restration here------------------------------------------------
 //upload.single("profile_img"),
 router.post("/register", 
-upload.single("profile_img"),
 body("name").notEmpty().isLength({min:3}).withMessage("name sould be more than 3 cahrector"),
 body("name").isLength({max:15}).withMessage("name should not more than 15 charector"),
 body("email").isEmail().withMessage("please provide vailid email"),
